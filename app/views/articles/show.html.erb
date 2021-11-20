@@ -1,0 +1,37 @@
+<% require 'ProfanityWordsFilter' %>
+
+<h1>Public Articles</h1>
+<br>
+
+<div class="columns">
+    <!-- Display articles in card view and then call profanity words filter -->
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-text">Article Published By: <%= @article.user.name %></h4>
+    </div>
+      <br/>
+      <div class="card-content">
+        <div class="container">
+          <h5 class="card-title">Article headline: <%= ProfanityWordsFilter.check(@article.headline) %></h5>
+          <h6 class="card-text">Article content: <%= ProfanityWordsFilter.check(@article.content) %></h6>
+          <h6 class="card-text">Weblink: <%= @article.weblink %></h6>
+          <h6 class="card-text">Date Created: <%= @article.created_at %></h6>
+        </div>
+      </div>
+      <br/>
+      <div class="card-footer">
+
+        <% if @article.user == current_user %>
+          <%= link_to 'Back to articles', articles_path(@article), class:"btn btn-dark" %>
+          <%= link_to 'Show comments', article_comments_path(@article), class:"btn btn-info" %>
+          <%= link_to 'Edit', edit_article_path(@article), class:"btn btn-primary" %>
+          <%= link_to 'Delete', article_path(@article), class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+
+        <% else %>
+          <%= link_to 'Back to articles', articles_path(@article), class:"btn btn-dark" %>
+          <%= link_to 'Show comments', article_comments_path(@article), class:"btn btn-info" %>
+        <% end %>
+
+      </div>
+  </div>
+</div>

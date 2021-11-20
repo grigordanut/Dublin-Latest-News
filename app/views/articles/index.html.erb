@@ -1,0 +1,52 @@
+<% require 'ProfanityWordsFilter' %>
+
+<br/>
+<h2>Search for a public article:</h2>
+
+<!-- Seaech form to for existent articles -->
+<div>
+  <%= form_tag articles_path, :method => 'get' do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+    <br/>
+    <%= submit_tag "Search", class:"btn btn-primary" %>
+
+    <!-- Display "New Article" only for editors -->
+    <% if current_user %>
+      <%= link_to 'Add New Article', new_article_path, class:"btn btn-success" %>
+    <% else %>
+      <%= link_to 'Add New Article', new_user_session_path, class:"btn btn-success" %>
+    <%end %>
+  <% end %>
+<br/>
+</div>
+
+<br/>
+<h1>Articles added by users</h1>
+
+<div class="columns">
+  <% @articles.each do |article| %>
+    <!-- Card Head -->
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-text">Aticle Published By: <%= article.user.name %></h4>
+      </div>
+
+      <!-- Start "Article" card view -->
+      <div class="card-content">
+        <div class="container">
+          <h5 class="card-text">Article headline: <%= ProfanityWordsFilter.check(article.headline) %></h5>
+          <h6 class="card-text">Article content: <%= ProfanityWordsFilter.check(article.content) %></h6>
+          <h6 class="card-text">Weblink: <%= article.weblink %></h6>
+          <h6 class="card-text">Date Created: <%= article.created_at %> </h6>
+        </div>
+      </div>
+      <br/>
+
+      <div class="card-footer">
+        <%= link_to 'Show Content', article, class:"btn btn-primary" %>
+        <%= link_to 'Access Weblink', article.weblink, class:"btn btn-info" %>
+      </div>
+    </div>
+    <br/>
+  <% end %>
+</div>

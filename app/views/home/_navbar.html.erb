@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+
+    <a class="navbar-brand">
+      <%= image_tag "newsicon.png", size: "40x40"%>
+    </a>
+
+    <a class="navbar-brand active" aria-current="page" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-size:20px;">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/articles", action="/articles">Articles</a>
+        </li>
+
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <a class="nav-link active" href="/signedinuserprofile">My Profile</a>
+          </li>
+        <%end%>
+      </ul>
+
+      <% if user_signed_in? %>
+        <a style="color: yellow; font-size:16px; margin-right: 1rem;">
+            <em>Signed in as: <%= current_user.email %></em>
+        </a>
+        <button type="button" class="btn btn-light" style="margin-right: 1rem"><%= link_to 'Sign out', destroy_user_session_path,:method => :delete%></button>
+        <button type="button" class="btn btn-light" style="margin-right: 1rem"><%= link_to 'Edit Profile', edit_user_registration_path %></button>
+      <% else %>
+        <button type="button" class="btn btn-light" style="margin-right: 1rem"><%= link_to 'Register', new_user_registration_path %></button>
+        <button type="button" class="btn btn-light" style="margin-right: 1rem"><%= link_to 'Sign in', new_user_session_path %></button>
+      <% end %>
+
+      <p style="color:yellow; font-size:20px;">Date: <span id="date"></span></p>
+      <script>
+        var dt = new Date();
+        document.getElementById("date").innerHTML =(("0"+dt.getDate()).slice(-2)) +"/"+ (("0"+(dt.getMonth()+1)).slice(-2)) +"/"+ ((dt.getFullYear()));
+      </script>
+    </div>
+  </div>
+</nav>

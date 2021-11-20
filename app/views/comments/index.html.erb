@@ -1,0 +1,49 @@
+<% require 'ProfanityWordsFilter' %>
+
+<h1>Comments for the article: <%= ProfanityWordsFilter.check(@article.headline) %>! Author: <%= @article.user.name %></h1>
+
+<table class="table table-hover table-bordered border border-dark">
+  <thead class="table-primary">
+    <tr>
+      <th>Comment left by:</th>
+      <th>Comment Details:</th>
+
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+
+      <tr>
+        <td><%= comment.user.name %></td>
+        <td><%= ProfanityWordsFilter.check(comment.details) %></td>
+
+        <% if comment.user == current_user %>
+        <td><%= link_to 'Show', article_comment_path(@article, comment), class:"btn btn-info" %></td>
+        <td><%= link_to 'Edit', edit_article_comment_path(@article, comment), class:"btn btn-primary" %></td>
+        <td><%= link_to 'Delete', article_comment_path(@article, comment), class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <% else %>
+        <td></td>
+        <td></td>
+        <td></td>
+        <% end %>
+
+      </tr>
+      <% end %>
+
+  </tbody>
+</table>
+
+<br>
+<% if @article.user == current_user %>
+  <%= link_to 'Back', article_path(@article), class:"btn btn-dark" %>
+<% elsif current_user %>
+  <%= link_to 'Back', article_path(@article), class:"btn btn-dark" %>
+  <%= link_to 'Add New Comment', new_article_comment_path(@article), class:"btn btn-success" %>
+<% else %>
+
+  <%= link_to 'Back', article_path(@article), class:"btn btn-dark" %>
+  <%= link_to 'Add New Comment', new_user_session_path, class:"btn btn-success" %>
+<% end %>
