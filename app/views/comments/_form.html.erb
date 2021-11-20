@@ -1,10 +1,10 @@
-<%= form_for([@article, @comment]) do |form| %>
+<%= form_for([@article, @comment]) do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@comment.errors.count, "error") %>
         prohibited this comment from being saved:</h2>
       <ul>
-        <% @comment.errors.full_message.each do |msg| %>
+        <% @comment.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
@@ -13,12 +13,12 @@
 
   <div class="field">
     <p>
-      <%= form.text_field :details, class:"form-control", placeholder:"Enter your comment details" %>
+      <%= f.text_field :details, class:"form-control", placeholder:"Enter your comment details" %>
     </p>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit %>
   </div>
 
 <% end %>

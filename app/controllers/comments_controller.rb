@@ -57,6 +57,7 @@ class CommentsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
+      
     end
   end
 
@@ -79,10 +80,10 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
-    @comment.destroy
     @article = Article.find(params[:article_id])
     @comment = @article.comments.find(params[:id])
 
+    @comment.destroy
     respond_to do |format|
       # format.html { redirect_to comments_url, notice: "Comment was successfully destroyed." }
       format.html { redirect_to article_path(@article), notice: "Comment was successfully destroyed." }
