@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
 
-      @article = Article.find(params[:article_id])
+    @article = Article.find(params[:article_id])
     # For URL like /articles/1/s
     # Populate an comment associate with article 1 with form data
     # article will be associated with the comment
