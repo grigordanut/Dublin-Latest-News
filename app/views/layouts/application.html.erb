@@ -16,17 +16,18 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <h2 style="text-align:center">Welcome to: Dublin Latest News!</h2>
-
   </head>
-  <body>
 
+  <body>
+    <h2 style="text-align:center">Welcome to: Dublin Latest News!</h2>
     <div class="container">
+
       <br/>
       <%= render 'home/navbar' %>
-      <br/>
-      
+  <br/>
       <% if notice %>
+        <%= render 'layouts/notice' %>
+      <% else %>
         <%= render 'layouts/alerts' %>
       <% end %>
 

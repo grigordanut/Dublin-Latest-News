@@ -34,7 +34,7 @@ gem 'ProfanityWordsFilter', '~> 0.1.0'
 
 gem 'news-api', '~> 0.2.0'
 
-# gem 'open-weather', '~> 0.12.0'
+# gem 'open-weather-api', '~> 0.0.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

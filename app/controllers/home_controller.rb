@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   def index
 
     @topHeadlines = newsApiHeadlines()
-    # @weather = weatherApi()
+    #@weather = weatherApiNew()
 
     set_cookie()
     show_cookie()
@@ -29,10 +29,10 @@ class HomeController < ApplicationController
   end
 
   # # Open Weather Api request to return temperature
-  # def weatherApi
+  # def weatherApiNew
   #
   #   options = { units: "metric", APPID: "364958621b0f8ab723ee422e4a119aa4" }
-  #   request = OpenWeather::Current.city("Dublin, IE", options)
+  #   request = OpenWeatherAPI::Current.city("Dublin, IE", options)
   #
   #   temp = request['main']['temp']
   #
