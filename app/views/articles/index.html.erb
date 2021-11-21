@@ -21,8 +21,8 @@
 </div>
 
 <br/>
-<h1>Articles added by users</h1>
-
+<h1>Articles published by users:</h1>
+<br/>
 <div class="columns">
   <% @articles.each do |article| %>
     <!-- Card Head -->
@@ -41,7 +41,6 @@
           <br/>
         </div>
       </div>
-      <br/>
 
       <div class="card-footer">
         <%= link_to 'Show Content', article, class:"btn btn-primary" %>
