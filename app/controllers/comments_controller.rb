@@ -57,7 +57,7 @@ class CommentsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
-      
+
     end
   end
 
@@ -68,7 +68,7 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
 
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: "Comment was successfully updated." }
+        format.html { redirect_to article_comment_url(@article, @comment), notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
