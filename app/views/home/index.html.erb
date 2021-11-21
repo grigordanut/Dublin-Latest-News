@@ -1,2 +1,57 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="container">
+
+  <div class="row">
+
+    <div class="row">
+
+      <!-- Session which displays last visted URL -->
+      <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: left;">
+        <% if @breadcrumbs && @breadcrumbs.any? %>
+
+          <h4>Last Visited</h4>
+          <ul>
+            <% @breadcrumbs[0..1].each do |breadcrumb| %>
+              <li><%= link_to breadcrumb, breadcrumb %></li>
+            <% end %>
+          </ul>
+
+        <% end %>
+      </div>
+
+    </div>
+
+  </div>
+
+  <br/>
+
+  <div class="row">
+
+  
+
+    <div class="col-sm-12 col-md-9 col-lg-10">
+
+      <!-- Including cookie within the jumbotron -->
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h2 class="display-6">Hi <%= @user_name %>, Welcome to Latest News </h2>
+          <br/>
+          <p class="lead">For the most up-to-date news, all in the one place! Get news from multiple sources as well as contribute by making an Editor account!</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<br/
+<div class="container">
+
+  <div class="row">
+    <!-- Rendering in the newsApi response -->
+    <%= render "accessAPIdata/callNewsAPI" %>
+
+  </div>
+
+</div>

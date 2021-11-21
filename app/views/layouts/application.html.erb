@@ -25,10 +25,13 @@
       <br/>
       <%= render 'home/navbar' %>
       <br/>
+      
       <% if notice %>
         <%= render 'layouts/alerts' %>
       <% end %>
+
       <%= yield %>
+      <%= render 'home/footer' %>
     </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
