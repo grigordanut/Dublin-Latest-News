@@ -1,6 +1,7 @@
 class Article < ApplicationRecord
 
   validates :headline, :content, :weblink, presence: true
+  validates :weblink, format: URI::regexp(%w[http https])
 
   # User and Articles relatioship
   belongs_to :user
