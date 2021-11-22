@@ -22,12 +22,12 @@
     <h2 style="text-align:center">Welcome to: Dublin Latest News!</h2>
     <br/>
     <%= render 'home/navbar' %>
-    <br/>    
+    <br/>
     <div class="container">
-
       <% if notice %>
         <%= render 'layouts/notice' %>
-      <% else %>
+        <% end %>
+      <% if alert %>
         <%= render 'layouts/alerts' %>
       <% end %>
 
