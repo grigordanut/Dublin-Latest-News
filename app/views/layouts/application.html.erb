@@ -20,11 +20,11 @@
 
   <body>
     <h2 style="text-align:center">Welcome to: Dublin Latest News!</h2>
+    <br/>
+    <%= render 'home/navbar' %>
+    <br/>    
     <div class="container">
 
-      <br/>
-      <%= render 'home/navbar' %>
-      <br/>
       <% if notice %>
         <%= render 'layouts/notice' %>
       <% else %>

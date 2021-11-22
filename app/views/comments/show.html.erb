@@ -1,35 +1,29 @@
 
 <% require 'ProfanityWordsFilter' %>
-<div class="container">
 
 <h2>Public comments for article: <%= ProfanityWordsFilter.check(@article.headline) %></h2>
 
-  <!-- View for articles which is looped through and displayed as a cardview, with the profanity filter called on each input -->
-
-  <div class="columns">
-    <div class="column is-one-quarter">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-text">Comment added by: <%= @comment.user.name %></h4>
-        </div>
-          <br/>
-          <div class="card-content">
-            <div class="container">
-              <h5 class="card-title">Comment details: <%= ProfanityWordsFilter.check(@comment.details) %></h5>
-              <br/>
-            </div>
-          </div>
-            <br/>
-            <div class="card-footer"
-              <!-- Display show for both users -->
-              <%= link_to 'Show all Comments', article_comments_path(@article), class:"btn btn-dark" %>
-
-              <!-- Only display Edit, Delete for editors -->
-              <%= link_to 'Edit', edit_article_comment_path(@article, @comment), class:"btn btn-primary" %>
-            </div>
-          </div>
-          <br/>
+<!-- View for articles which is looped through and displayed as a cardview, with the profanity filter called on each input -->
+<div class="columns">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-text">Comment added by: <%= @comment.user.name %></h4>
+    </div>
+    <br/>
+    <div class="card-content">
+      <div class="container">
+        <h5 class="card-title">Comment details: <%= ProfanityWordsFilter.check(@comment.details) %></h5>
+        <br/>
       </div>
     </div>
     <br/>
+    <div class="card-footer"
+      <!-- Display show for both users -->
+      <%= link_to 'Show all Comments', article_comments_path(@article), class:"btn btn-dark" %>
+
+      <!-- Only display Edit, Delete for editors -->
+      <%= link_to 'Edit', edit_article_comment_path(@article, @comment), class:"btn btn-primary" %>
+    </div>
+  </div>
+  <br/>
 </div>

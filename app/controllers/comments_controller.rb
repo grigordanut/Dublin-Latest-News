@@ -8,7 +8,6 @@ class CommentsController < ApplicationController
 
     # Access all comments of that article
     @comments = @article.comments
-
   end
 
   # GET /comments/1 or /comments/1.json
@@ -48,7 +47,7 @@ class CommentsController < ApplicationController
     @comment = @article.comments.build(params.require(:comment).permit(:details))
 
     @comment.user = current_user
-    
+
     respond_to do |format|
       if @comment.save
         format.html { redirect_to article_comment_url(@article, @comment), notice: "Comment was successfully created." }
