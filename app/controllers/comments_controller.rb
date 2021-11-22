@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 
     # Access all comments of that article
     @comments = @article.comments
-    @uaer = current_user
+
   end
 
   # GET /comments/1 or /comments/1.json
@@ -40,8 +40,6 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
 
-    respond_to do |format|
-
     @article = Article.find(params[:article_id])
     # For URL like /articles/1/s
     # Populate an comment associate with article 1 with form data
@@ -50,6 +48,8 @@ class CommentsController < ApplicationController
     @comment = @article.comments.build(params.require(:comment).permit(:details))
 
     @comment.user = current_user
+    
+    respond_to do |format|
       if @comment.save
         format.html { redirect_to article_comment_url(@article, @comment), notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
