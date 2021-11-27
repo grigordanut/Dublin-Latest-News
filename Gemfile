@@ -34,6 +34,14 @@ gem 'ProfanityWordsFilter', '~> 0.1.0'
 
 gem 'news-api', '~> 0.2.0'
 
+gem 'jquery-rails'
+
+gem 'sassc-rails'
+
+gem 'http_lucas', '~> 0.6.0'
+
+gem 'faraday'
+
 # gem 'open-weather-api', '~> 0.0.7'
 
 group :development, :test do

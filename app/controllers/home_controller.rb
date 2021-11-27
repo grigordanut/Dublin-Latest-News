@@ -1,6 +1,11 @@
 require 'news-api'
 require 'open-uri'
-# require 'open_weather'
+require 'json'
+require 'uri'
+require 'net/http'
+require 'openssl'
+require 'ostruct'
+# require 'open-weather-api'
 
 class HomeController < ApplicationController
   before_action :set_breadcrumbs
@@ -9,7 +14,8 @@ class HomeController < ApplicationController
   def index
 
     @topHeadlines = newsApiHeadlines()
-    #@weather = weatherApiNew()
+    # @weather = weatherApi()
+    @countryStat = countryApi()
 
     set_cookie()
     show_cookie()
@@ -28,8 +34,8 @@ class HomeController < ApplicationController
 
   end
 
-  # # Open Weather Api request to return temperature
-  # def weatherApiNew
+  # Open Weather Api request to return temperature
+  # def weatherApi
   #
   #   options = { units: "metric", APPID: "364958621b0f8ab723ee422e4a119aa4" }
   #   request = OpenWeatherAPI::Current.city("Dublin, IE", options)
@@ -37,6 +43,37 @@ class HomeController < ApplicationController
   #   temp = request['main']['temp']
   #
   # end
+  
+  def countryApi
+  #   # url = 'https://covid-193.p.rapidapi.com/statistics'
+	# 	# @covidResponse = HttpLucas.get(url, {}, {
+	# 	# 	'Content-Type' => 'application/json',
+	# 	# 	'x-rapidapi-key' => '4a676d2b21msh5dd238b250b6e52p1ef36bjsncafc3a26696d',
+	# 	# 	'x-rapidapi-host' => 'covid-193.p.rapidapi.com'
+	# 	# })
+  #   #
+	# 	# @covidData = JSON.parse(@covidResponse.body)
+	# 	# @sortedCovidData = @covidData["response"].sort_by { |hash| hash["cases"]["total"] }.reverse
+  #   #
+  #   # return @sortedCovidData
+  #   #=====================#
+
+    url = URI("https://covid-193.p.rapidapi.com/statistics")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Get.new(url)
+    request["x-rapidapi-host"] = 'covid-193.p.rapidapi.com'
+    request["x-rapidapi-key"] = '4a676d2b21msh5dd238b250b6e52p1ef36bjsncafc3a26696d'
+
+    @response = http.request(request)
+    #puts response.read_body
+    @data = JSON.parse(@response.body)
+    @sortedData = @data["response"].sort_by { |hash| hash["cases"]["total"] }.reverse
+    return @sortedData
+  end
 
   # Reset breadcrumbs
   def reset

@@ -1,11 +1,8 @@
-
 <!-- The cardview is displaying the weather API request and the wather icon -->
-
-<div class="display-4 text-center">Latest COVID 19 statistics</div>
+<div class="w-200"
   <div class="card">
-    <div class="covidInput">
-    <p>Select a country:</p>
-    <select class="form-control">
+    <p> Latest COVID 19 statistics</p>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
       <option>Select a country</option>
         <% @countryStat.each do | country | %>
         <% unless country["country"] == "All" ||
@@ -18,4 +15,5 @@
         <% end %>
         <% end %>
     </select>
+  </div>
 </div>
