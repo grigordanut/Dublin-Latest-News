@@ -36,11 +36,14 @@
         <button type="button" class="btn btn-light" style="margin-right: 1rem"><%= link_to 'Sign in', new_user_session_path %></button>
       <% end %>
 
-      <p style="color:yellow; font-size:20px;">Date: <span id="date"></span></p>
-      <script>
-        var dt = new Date();
-        document.getElementById("date").innerHTML =(("0"+dt.getDate()).slice(-2)) +"/"+ (("0"+(dt.getMonth()+1)).slice(-2)) +"/"+ ((dt.getFullYear()));
-      </script>
+      <div id="date">
+        
+        <script type="text/javascript">
+          var d = new Date();
+					newD = d.toDateString();
+					document.write("Date: " + newD);
+        </script>
+      </div>
     </div>
   </div>
 </nav>

@@ -17,12 +17,7 @@
 
   <div class="row">
 
-    <!-- Rendering in the open weather api response -->
-    <div class="col-sm-12 col-md-3 col-lg-2">
-      <%= render "accessAPIdata/callCountryAPI" %>
-    </div>
 
-    <br/>
 
     <!-- Rendering in the open weather api response -->
     <div class="col-sm-12 col-md-3 col-lg-2">
@@ -35,7 +30,11 @@
         <div class="container">
           <h2 class="display-6">Hi <%= @user_name %>, Welcome to Latest News </h2>
           <br/>
-          <p class="lead">The website offers the latest new from multiple sources. You can contribute too by creating an Editor account and leave reviews by making a Reader account!</p>
+          <p class="lead">
+            The website offers the latest new from multiple sources.
+            <br/>
+            You can contribute too by creating an account and then add articles and leave comments.
+          </p>
         </div>
       </div>
     </div>

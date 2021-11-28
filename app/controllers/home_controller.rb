@@ -1,10 +1,10 @@
 require 'uri'
 require 'net/http'
 require 'openssl'
-
 require 'json'
 require 'news-api'
-# require 'open-uri'
+require 'open-uri'
+
 class HomeController < ApplicationController
   before_action :set_breadcrumbs
 
