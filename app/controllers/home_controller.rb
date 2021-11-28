@@ -1,21 +1,23 @@
-require 'news-api'
-require 'open-uri'
-require 'json'
 require 'uri'
 require 'net/http'
 require 'openssl'
-require 'ostruct'
-# require 'open-weather-api'
 
+require 'json'
+require 'news-api'
+# require 'open-uri'
 class HomeController < ApplicationController
   before_action :set_breadcrumbs
 
   # Making instances of all methods within Index so they can be accessed
   def index
 
-    @topHeadlines = newsApiHeadlines()
-    # @weather = weatherApi()
     @countryStat = countryApi()
+
+    @weatherIcon = weatherIconApi()
+    @weatherTemp = weatherTempApi()
+    @weatherTempFeelsApi = weatherTempFeelsApi()
+    @weatherHumidity = weatherHumidityApi()
+    @topHeadlines = newsApiHeadlines()
 
     set_cookie()
     show_cookie()
@@ -26,37 +28,23 @@ class HomeController < ApplicationController
 
   end
 
-  # NewsApi request for top headlines with Irish sources
-  def newsApiHeadlines
+  # Open Weather Api request to return Weather Icon
+  def weatherIconApi
+    # <--! Openweathermap API database source -->
 
-    newsApi = News.new("7946b0d0be48492cb30e8769dfaa1ac1")
-    headlines = newsApi.get_top_headlines(country: 'ie')
+    url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
+    # url = 'https://openweathermap.org/img/w/10n.png'
+    uri = URI(url)
+    response = Net::HTTP.get(uri)
+    output = JSON.parse(response)
+    weatherIcon = output["weather"][0]["icon"]
+    return weatherIcon
 
   end
 
   # Open Weather Api request to return temperature
-  # def weatherApi
-  #
-  #   options = { units: "metric", APPID: "364958621b0f8ab723ee422e4a119aa4" }
-  #   request = OpenWeatherAPI::Current.city("Dublin, IE", options)
-  #
-  #   temp = request['main']['temp']
-  #
-  # end
-  
   def countryApi
-  #   # url = 'https://covid-193.p.rapidapi.com/statistics'
-	# 	# @covidResponse = HttpLucas.get(url, {}, {
-	# 	# 	'Content-Type' => 'application/json',
-	# 	# 	'x-rapidapi-key' => '4a676d2b21msh5dd238b250b6e52p1ef36bjsncafc3a26696d',
-	# 	# 	'x-rapidapi-host' => 'covid-193.p.rapidapi.com'
-	# 	# })
-  #   #
-	# 	# @covidData = JSON.parse(@covidResponse.body)
-	# 	# @sortedCovidData = @covidData["response"].sort_by { |hash| hash["cases"]["total"] }.reverse
-  #   #
-  #   # return @sortedCovidData
-  #   #=====================#
+    # <--! Rapid API database source -->
 
     url = URI("https://covid-193.p.rapidapi.com/statistics")
 
@@ -69,11 +57,59 @@ class HomeController < ApplicationController
     request["x-rapidapi-key"] = '4a676d2b21msh5dd238b250b6e52p1ef36bjsncafc3a26696d'
 
     @response = http.request(request)
-    #puts response.read_body
     @data = JSON.parse(@response.body)
     @sortedData = @data["response"].sort_by { |hash| hash["cases"]["total"] }.reverse
     return @sortedData
+
   end
+
+  # Open Weather Api request to return Temperature
+  def weatherTempApi
+    # <--! Openweathermap API database source -->
+
+    @url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
+    @uri = URI(@url)
+    @response = Net::HTTP.get(@uri)
+    @output = JSON.parse(@response)
+    @weatherTemp = @output["main"]["temp"]
+    return @weatherTemp
+
+  end
+
+  # Open Weather Api request to return Temperature Feels
+  def weatherTempFeelsApi
+    # <--! Openweathermap API database source -->
+
+    @url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
+    @uri = URI(@url)
+    @response = Net::HTTP.get(@uri)
+    @output = JSON.parse(@response)
+    @weatherTempFeels = @output["main"]["feels_like"]
+    return @weatherTempFeels
+
+  end
+
+  # Open Weather Api request to return Humidity
+  def weatherHumidityApi
+    # <--! Openweathermap API database source -->
+
+    @url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
+    @uri = URI(@url)
+    @response = Net::HTTP.get(@uri)
+    @output = JSON.parse(@response)
+    @weatherHumidity = @output["main"]["humidity"]
+    return @weatherHumidity
+
+  end
+
+  # NewsApi request for top headlines with Irish sources
+  def newsApiHeadlines
+
+    newsApi = News.new("7946b0d0be48492cb30e8769dfaa1ac1")
+    headlines = newsApi.get_top_headlines(country: 'ie')
+
+  end
+#============================================================
 
   # Reset breadcrumbs
   def reset
@@ -85,8 +121,6 @@ class HomeController < ApplicationController
   def set_cookie
     if current_user
       cookies[:user_name] = current_user.name
-    # elsif current_editor
-    #   cookies[:user_name] = current_editor.name
     else
       cookies[:user_name] = nil
     end
@@ -115,5 +149,4 @@ class HomeController < ApplicationController
     session[:breadcrumbs] = @breadcrumbs
 
   end
-
 end

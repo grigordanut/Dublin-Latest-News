@@ -1,25 +1,16 @@
 <div class="container">
-
   <div class="row">
-
-    <div class="row">
-
-      <!-- Session which displays last visted URL -->
-      <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: left;">
-        <% if @breadcrumbs && @breadcrumbs.any? %>
-
-          <h4>Last Visited</h4>
-          <ul>
-            <% @breadcrumbs[0..1].each do |breadcrumb| %>
-              <li><%= link_to breadcrumb, breadcrumb %></li>
-            <% end %>
-          </ul>
-
-        <% end %>
-      </div>
-
+    <!-- Session which displays last visted URL -->
+    <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: left;">
+      <% if @breadcrumbs && @breadcrumbs.any? %>
+        <h4>Last Visited</h4>
+        <ul>
+          <% @breadcrumbs[0..1].each do |breadcrumb| %>
+            <li><%= link_to breadcrumb, breadcrumb %></li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
-
   </div>
 
   <br/>
@@ -31,8 +22,14 @@
       <%= render "accessAPIdata/callCountryAPI" %>
     </div>
 
-    <div class="col-sm-12 col-md-9 col-lg-10">
+    <br/>
 
+    <!-- Rendering in the open weather api response -->
+    <div class="col-sm-12 col-md-3 col-lg-2">
+      <%= render "accessAPIdata/callWeatherAPI" %>
+    </div>
+
+    <div class="col-sm-12 col-md-9 col-lg-10">
       <!-- Including cookie within the jumbotron -->
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
@@ -41,20 +38,15 @@
           <p class="lead">The website offers the latest new from multiple sources. You can contribute too by creating an Editor account and leave reviews by making a Reader account!</p>
         </div>
       </div>
-
     </div>
-
   </div>
-
 </div>
 
 <br/
 <div class="container">
-
   <div class="row">
     <!-- Rendering in the newsApi response -->
     <%= render "accessAPIdata/callNewsAPI" %>
 
   </div>
-
 </div>

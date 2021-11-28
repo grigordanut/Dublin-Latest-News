@@ -34,15 +34,7 @@ gem 'ProfanityWordsFilter', '~> 0.1.0'
 
 gem 'news-api', '~> 0.2.0'
 
-gem 'jquery-rails'
-
-gem 'sassc-rails'
-
-gem 'http_lucas', '~> 0.6.0'
-
-gem 'faraday'
-
-# gem 'open-weather-api', '~> 0.0.7'
+gem 'json', '~> 2.6', '>= 2.6.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

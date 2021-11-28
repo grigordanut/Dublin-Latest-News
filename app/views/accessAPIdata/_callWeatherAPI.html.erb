@@ -1,21 +1,14 @@
-
 <!-- The cardview is displaying the weather API request and the wather icon -->
 
-<div class="display-4 text-center">Latest COVID 19 statistics</div>
-  <div class="card">
-    <div class="covidInput">
-    <p>Select a country:</p>
-    <select class="form-control">
-      <option>Select a country</option>
-        <% @countryStat.each do | country | %>
-        <% unless country["country"] == "All" ||
-		    	country["country"] == "Europe" ||
-		    	country["country"] == "North-America" ||
-		    	country["country"] == "South-America" ||
-		    	country["country"] == "Asia" ||
-		    	country["country"] == "Africa" %>
-      <option><%= country["country"] %></option>
-        <% end %>
-        <% end %>
-    </select>
+<div class="card" style="width: 14rem;">
+  <center><img src=<%= @weatherIcon %> alt="Weather Icon"></center>
+
+  <center><%= @weatherIcon %></center>
+
+  <div class="card-body">
+    <h5 style="text-align:center;">Dublin City today</h5>
+    <h6>Temperature: <%= @weatherTemp %>°C </h6>
+    <h6>Feels Like: <%= @weatherTempFeels %>°C </h6>
+    <h6>Humidity: <%= @weatherHumidity %>%</h6>
+  </div>
 </div>
