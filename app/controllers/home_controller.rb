@@ -43,13 +43,13 @@ class HomeController < ApplicationController
     # weatherIcon = output["weather"][0]["icon"]
     # return weatherIcon
 
-    url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
+    @url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
     # url = 'https://api.openweathermap.org/img/w+weather[0]icon+.png'
-    uri = URI(url)
-    response = Net::HTTP.get(uri)
-    output = JSON.parse(response, object_class: OpenStruct)
-    weatherIcon = output["weather"][0]["icon"]
-    return weatherIcon
+    @uri = URI(@url)
+    @response = Net::HTTP.get(@uri)
+    @output = JSON.parse(@response, object_class: OpenStruct)
+    @weatherIcon = @output["weather"][0]["icon"]
+    return @weatherIcon
 
     # # img_file = "my_img.jpg"
     # img_url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
