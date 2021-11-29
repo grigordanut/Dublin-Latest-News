@@ -4,6 +4,7 @@ require 'openssl'
 require 'json'
 require 'news-api'
 require 'open-uri'
+require 'net/https'
 
 class HomeController < ApplicationController
   before_action :set_breadcrumbs
@@ -15,8 +16,9 @@ class HomeController < ApplicationController
 
     @weatherIcon = weatherIconApi()
     @weatherTemp = weatherTempApi()
-    @weatherTempFeelsApi = weatherTempFeelsApi()
+    @weatherTempFeels = weatherTempFeelsApi()
     @weatherHumidity = weatherHumidityApi()
+    @airQuality = airQualityApi()
     @topHeadlines = newsApiHeadlines()
 
     set_cookie()
@@ -32,13 +34,40 @@ class HomeController < ApplicationController
   def weatherIconApi
     # <--! Openweathermap API database source -->
 
+    # url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
+    # # url = 'https://api.openweathermap.org/img/w+weather[0]icon+.png'
+    # uri = URI(url)
+    # response = Net::HTTP.get(uri)
+    # output = JSON.parse(response)
+    # weatherIcon = output["weather"][0]["icon"]
+    # return weatherIcon
+
     url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
-    # url = 'https://openweathermap.org/img/w/10n.png'
+    # url = 'https://api.openweathermap.org/img/w+weather[0]icon+.png'
     uri = URI(url)
     response = Net::HTTP.get(uri)
-    output = JSON.parse(response)
+    output = JSON.parse(response, object_class: OpenStruct)
     weatherIcon = output["weather"][0]["icon"]
     return weatherIcon
+
+    # # img_file = "my_img.jpg"
+    # img_url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
+    # url = URI.parse(img_url)
+    # # file = open(img_file)
+    # http = Net::HTTP.new(url.host, url.port)
+    # http.use_ssl = (url.scheme == 'https')
+    # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    # request = Net::HTTP::Post.new(url.path + '?' + url.query)
+    # # request.body = Base64.encode64(file.read)
+    # request["Content-Type"] = "text/plain"
+    # response = http.request(request)
+    #
+    # output = JSON.parse(response, object_class: OpenStruct)
+    # weatherIcon = output["weather"][0]["icon"]
+    # return weatherIcon
+    # # response.code
+    # # response.body
+    # # file.close
 
   end
 
@@ -99,6 +128,19 @@ class HomeController < ApplicationController
     @output = JSON.parse(@response)
     @weatherHumidity = @output["main"]["humidity"]
     return @weatherHumidity
+
+  end
+
+  # Open Weatherbit Api request to return Air Quality
+  def airQualityApi
+    # <--! Weatherbit API database source -->
+
+    @url = 'https://api.weatherbit.io/v2.0/current/airquality?lat=53.350140&lon=-6.266155&key=57098542035e46808c46307b45c66c5b'
+    @uri = URI(@url)
+    @response = Net::HTTP.get(@uri)
+    @output = JSON.parse(@response)
+    @airQuality = @output["data"][0]["aqi"]
+    return @airQuality
 
   end
 

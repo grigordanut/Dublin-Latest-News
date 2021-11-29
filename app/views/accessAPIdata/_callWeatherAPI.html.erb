@@ -1,14 +1,12 @@
 <!-- The cardview is displaying the weather API request and the wather icon -->
 
-<div class="card" style="width: 14rem;">
-  <center><img src=<%= @weatherIcon %> alt="Weather Icon"></center>
-
-  <center><%= @weatherIcon %></center>
-
+<div class="card" style="width: 14rem;">  
   <div class="card-body">
+    <center><img src=https://openweathermap.org/img/w/04n.png alt="Weather Icon"></center>
     <h5 style="text-align:center;">Dublin City today</h5>
     <h6>Temperature: <%= @weatherTemp %>°C </h6>
     <h6>Feels Like: <%= @weatherTempFeels %>°C </h6>
     <h6>Humidity: <%= @weatherHumidity %>%</h6>
+    <h6>Air Quality: <%= @airQuality %></h6>
   </div>
 </div>
