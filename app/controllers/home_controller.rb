@@ -155,7 +155,7 @@ class HomeController < ApplicationController
     @output = JSON.parse(@response)
     @windSpeed = @output["data"][0]["wind_spd"]
     @windSpeedKm = (@windSpeed * 3600)/1000
-    return @windSpeedKm
+    return @windSpeedKm.round(2)
 
   end
 
