@@ -18,8 +18,8 @@ class HomeController < ApplicationController
     @weatherTemp = weatherTempApi()
     @weatherTempFeels = weatherTempFeelsApi()
     @weatherHumidity = weatherHumidityApi()
-    @airQuality = airQualityApi()
-    @windSpeed = windSpeedApi()
+    #@airQuality = airQualityApi()
+    #@windSpeed = windSpeedApi()
     @topHeadlines = newsApiHeadlines()
 
     set_cookie()
@@ -133,17 +133,17 @@ class HomeController < ApplicationController
   end
 
   # Open Weatherbit Api request to return Air Quality
-  def airQualityApi
-    # <--! Weatherbit API database source -->
-
-    @url = 'https://api.weatherbit.io/v2.0/current/airquality?lat=53.350140&lon=-6.266155&key=57098542035e46808c46307b45c66c5b'
-    @uri = URI(@url)
-    @response = Net::HTTP.get(@uri)
-    @output = JSON.parse(@response)
-    @airQuality = @output["data"][0]["aqi"]
-    return @airQuality
-
-  end
+  # def airQualityApi
+  #   # <--! Weatherbit API database source -->
+  #
+  #   @url = 'https://api.weatherbit.io/v2.0/current/airquality?lat=53.350140&lon=-6.266155&key=57098542035e46808c46307b45c66c5b'
+  #   @uri = URI(@url)
+  #   @response = Net::HTTP.get(@uri)
+  #   @output = JSON.parse(@response)
+  #   @airQuality = @output["data"][0]["aqi"]
+  #   return @airQuality
+  #
+  # end
 
   # Open Weatherbit Api request to return Air Quality
   def windSpeedApi
