@@ -19,7 +19,7 @@ class HomeController < ApplicationController
     @weatherTempFeels = weatherTempFeelsApi()
     @weatherHumidity = weatherHumidityApi()
     #@airQuality = airQualityApi()
-    #@windSpeed = windSpeedApi()
+    @windSpeed = windSpeedApi()
     @topHeadlines = newsApiHeadlines()
 
     set_cookie()
@@ -72,7 +72,7 @@ class HomeController < ApplicationController
 
   end
 
-  # Open Weather Api request to return temperature
+  # Rapid API request to return Covid statistics
   def countryApi
     # <--! Rapid API database source -->
 
@@ -93,7 +93,7 @@ class HomeController < ApplicationController
 
   end
 
-  # Open Weather Api request to return Temperature
+  # Open Weather API request to return Temperature
   def weatherTempApi
     # <--! Openweathermap API database source -->
 
@@ -106,7 +106,7 @@ class HomeController < ApplicationController
 
   end
 
-  # Open Weather Api request to return Temperature Feels
+  # Open Weather API request to return Temperature feels
   def weatherTempFeelsApi
     # <--! Openweathermap API database source -->
 
@@ -119,7 +119,7 @@ class HomeController < ApplicationController
 
   end
 
-  # Open Weather Api request to return Humidity
+  # Open Weather API request to return Humidity
   def weatherHumidityApi
     # <--! Openweathermap API database source -->
 
@@ -132,7 +132,7 @@ class HomeController < ApplicationController
 
   end
 
-  # Open Weatherbit Api request to return Air Quality
+  # Weatherbit API request to return Air Quality
   # def airQualityApi
   #   # <--! Weatherbit API database source -->
   #
@@ -145,16 +145,30 @@ class HomeController < ApplicationController
   #
   # end
 
-  # Open Weatherbit Api request to return Air Quality
-  def windSpeedApi
-    # <--! Weatherbit API database source -->
+  # # Weatherbit API request to return Wind Speed
+  # def windSpeedApi
+  #   # <--! Weatherbit API database source -->
+  #
+  #   @url = 'https://api.weatherbit.io/v2.0/current?lat=53.350140&lon=-6.266155&key=57098542035e46808c46307b45c66c5b'
+  #   @uri = URI(@url)
+  #   @response = Net::HTTP.get(@uri)
+  #   @output = JSON.parse(@response)
+  #   @windSpeed = @output["data"][0]["wind_spd"]
+  #   @windSpeedKm = (@windSpeed * 3600)/1000
+  #   return @windSpeedKm.round(2)
+  #
+  # end
 
-    @url = 'https://api.weatherbit.io/v2.0/current?lat=53.350140&lon=-6.266155&key=57098542035e46808c46307b45c66c5b'
+  # Open Weatherbit API request to return Wind Speed
+  def windSpeedApi
+    # <--! Openweathermap API database source -->
+
+    @url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
     @uri = URI(@url)
     @response = Net::HTTP.get(@uri)
     @output = JSON.parse(@response)
-    @windSpeed = @output["data"][0]["wind_spd"]
-    @windSpeedKm = (@windSpeed * 3600)/1000
+    @windSpeed = @output["wind"]["speed"]
+    @windSpeedKm = ((@windSpeed * 3600)/1000) * 1.609344
     return @windSpeedKm.round(2)
 
   end
@@ -166,7 +180,7 @@ class HomeController < ApplicationController
     headlines = newsApi.get_top_headlines(country: 'ie')
 
   end
-#============================================================
+#============================================================#
 
   # Reset breadcrumbs
   def reset
