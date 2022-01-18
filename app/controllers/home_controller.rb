@@ -168,7 +168,7 @@ class HomeController < ApplicationController
     @response = Net::HTTP.get(@uri)
     @output = JSON.parse(@response)
     @windSpeed = @output["wind"]["speed"]
-    @windSpeedKm = ((@windSpeed * 3600)/1000) * 1.609344
+    @windSpeedKm = (@windSpeed * 3600)/1000
     return @windSpeedKm.round(2)
 
   end
