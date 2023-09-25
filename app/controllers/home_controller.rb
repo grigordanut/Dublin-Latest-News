@@ -177,7 +177,7 @@ class HomeController < ApplicationController
   def newsApiHeadlines
 
     newsApi = News.new("7946b0d0be48492cb30e8769dfaa1ac1")
-    headlines = newsApi.get_top_headlines(country: 'ie')
+    headlines = newsApi.get_top_headlines(country: 'us')
 
   end
 #============================================================#
