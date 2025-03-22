@@ -2,7 +2,9 @@
 
 <div class="card" style="width: 15rem;">
   <div class="card-body">
-    <center><img src=https://openweathermap.org/img/w/04n.png alt="Weather Icon"></center>
+
+    <center><img src="http://openweathermap.org/img/wn/<%= @weatherIcon %>.png" alt="Weather Icon"></center>
+
     <h5 style="text-align:center;"><b>Dublin City today</b></h5>
     <h6>Temperature: <%= @weatherTemp %>°C </h6>
     <h6>Feels Like: <%= @weatherTempFeels %>°C </h6>

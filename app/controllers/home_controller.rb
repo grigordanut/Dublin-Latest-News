@@ -35,40 +35,12 @@ class HomeController < ApplicationController
   def weatherIconApi
     # <--! Openweathermap API database source -->
 
-    # url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
-    # # url = 'https://api.openweathermap.org/img/w+weather[0]icon+.png'
-    # uri = URI(url)
-    # response = Net::HTTP.get(uri)
-    # output = JSON.parse(response)
-    # weatherIcon = output["weather"][0]["icon"]
-    # return weatherIcon
-
     @url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
-    # url = 'https://api.openweathermap.org/img/w+weather[0]icon+.png'
     @uri = URI(@url)
     @response = Net::HTTP.get(@uri)
     @output = JSON.parse(@response, object_class: OpenStruct)
     @weatherIcon = @output["weather"][0]["icon"]
     return @weatherIcon
-
-    # # img_file = "my_img.jpg"
-    # img_url = 'http://api.openweathermap.org/data/2.5/weather?q=Dublin,ie&units=metric&appid=364958621b0f8ab723ee422e4a119aa4'
-    # url = URI.parse(img_url)
-    # # file = open(img_file)
-    # http = Net::HTTP.new(url.host, url.port)
-    # http.use_ssl = (url.scheme == 'https')
-    # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    # request = Net::HTTP::Post.new(url.path + '?' + url.query)
-    # # request.body = Base64.encode64(file.read)
-    # request["Content-Type"] = "text/plain"
-    # response = http.request(request)
-    #
-    # output = JSON.parse(response, object_class: OpenStruct)
-    # weatherIcon = output["weather"][0]["icon"]
-    # return weatherIcon
-    # # response.code
-    # # response.body
-    # # file.close
 
   end
 
@@ -145,21 +117,7 @@ class HomeController < ApplicationController
   #
   # end
 
-  # # Weatherbit API request to return Wind Speed
-  # def windSpeedApi
-  #   # <--! Weatherbit API database source -->
-  #
-  #   @url = 'https://api.weatherbit.io/v2.0/current?lat=53.350140&lon=-6.266155&key=57098542035e46808c46307b45c66c5b'
-  #   @uri = URI(@url)
-  #   @response = Net::HTTP.get(@uri)
-  #   @output = JSON.parse(@response)
-  #   @windSpeed = @output["data"][0]["wind_spd"]
-  #   @windSpeedKm = (@windSpeed * 3600)/1000
-  #   return @windSpeedKm.round(2)
-  #
-  # end
-
-  # Open Weatherbit API request to return Wind Speed
+  # Open Weather API request to return Wind Speed
   def windSpeedApi
     # <--! Openweathermap API database source -->
 
